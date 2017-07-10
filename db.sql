@@ -178,8 +178,10 @@ CREATE TABLE RequestTour (
   p_id int NOT NULL,
   isAcceptedDriver boolean,
   isAcceptedPassenger boolean,
-  passengerX int not Null,
-  passengerY int not null,
+  SpassengerX int not Null,
+  SpassengerY int not Null,
+  DpassengerX int not Null,
+  DpassengerY int not Null,
   cost int,
   PRIMARY KEY(r_id),
   FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
@@ -187,15 +189,14 @@ CREATE TABLE RequestTour (
 );
 
 CREATE TABLE RequestMoney (
-  rm int NOT NULL,
+  rm_id int NOT NULL,
   d_id int NOT NULL,
-  p_id int NOT NULL,
-  isAcceptedDriver boolean,
-  isAcceptedPassenger boolean,
-  passengerX int not Null,
-  passengerY int not null,
+  s_id int,
+  date_request DATETIME default CURRENT_TIMESTAMP,
+  isPayed boolean,
+  description varchar(400),
   cost int,
-  PRIMARY KEY(r_id),
+  PRIMARY KEY(rm_id),
   FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
-  FOREIGN KEY (p_id) REFERENCES Passengers(p_id)
+  FOREIGN KEY (s_id) REFERENCES SupportTeam(s_id)
 );
