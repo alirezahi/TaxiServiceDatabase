@@ -65,7 +65,7 @@ CREATE TABLE Drivers (
     birth_date DATETIME,
     licenceYear int,
     outOfService boolean,
-    state varchar(10),
+    state varchar(10) check (state in ('inService' , 'OutOfService' , 'InSearchOfService')),
     credit int default 0,
     date_change DATETIME default CURRENT_TIMESTAMP,
     PRIMARY KEY (d_id)
@@ -176,6 +176,7 @@ CREATE TABLE RequestTour (
   r_id int NOT NULL,
   d_id int NOT NULL,
   p_id int NOT NULL,
+  rname varchar(50),
   isAcceptedDriver boolean,
   isAcceptedPassenger boolean,
   SpassengerX int not Null,
@@ -200,3 +201,10 @@ CREATE TABLE RequestMoney (
   FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
   FOREIGN KEY (s_id) REFERENCES SupportTeam(s_id)
 );
+
+CREATE TRIGGER add_credit
+BEFORE INSERT ON Clients
+  REFERENCING NEW ROW AS New
+FOR EACH ROW
+  SET New.home_telephone =
+      COALESCE(New.home_telephone,New.work_telephone);
