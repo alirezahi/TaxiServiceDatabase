@@ -1,18 +1,24 @@
 CREATE TABLE Passengers (
     p_id int NOT NULL,
+    Fname varchar(50) NOT NULL,
+    Lname varchar(50) NOT NULL,
     profilePic varchar(255) NOT NULL,
     username varchar(255) UNIQUE,
     isRegistered boolean,
+    register_date DATETIME default CURRENT_TIMESTAMP,
     credit int default 0,
     PRIMARY KEY (p_id)
 );
 
 CREATE TABLE PassengersLog (
     p_id int NOT NULL,
+    Fname varchar(50) NOT NULL,
+    Lname varchar(50) NOT NULL,
     profilePic varchar(255) NOT NULL,
     username varchar(255) UNIQUE,
     isRegistered boolean,
     credit int default 0,
+    register_date DATETIME default CURRENT_TIMESTAMP,
     date_change DATETIME default CURRENT_TIMESTAMP,
     PRIMARY KEY (p_id)
 );
@@ -146,4 +152,50 @@ CREATE TABLE SupportTeam (
   profilePic varchar(255) NOT NULL,
   isonline boolean,
   PRIMARY KEY(s_id)
+);
+
+CREATE TABLE Votes (
+  d_id int NOT NULL,
+  p_id int NOT NULL,
+  vote int NOT NULL,
+  PRIMARY KEY(p_id,d_id),
+  FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
+  FOREIGN KEY (p_id) REFERENCES Passengers(p_id)
+);
+
+CREATE TABLE Comments (
+  d_id int NOT NULL,
+  p_id int NOT NULL,
+  comment varchar(400),
+  PRIMARY KEY(p_id,d_id),
+  FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
+  FOREIGN KEY (p_id) REFERENCES Passengers(p_id)
+);
+
+CREATE TABLE RequestTour (
+  r_id int NOT NULL,
+  d_id int NOT NULL,
+  p_id int NOT NULL,
+  isAcceptedDriver boolean,
+  isAcceptedPassenger boolean,
+  passengerX int not Null,
+  passengerY int not null,
+  cost int,
+  PRIMARY KEY(r_id),
+  FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
+  FOREIGN KEY (p_id) REFERENCES Passengers(p_id)
+);
+
+CREATE TABLE RequestMoney (
+  rm int NOT NULL,
+  d_id int NOT NULL,
+  p_id int NOT NULL,
+  isAcceptedDriver boolean,
+  isAcceptedPassenger boolean,
+  passengerX int not Null,
+  passengerY int not null,
+  cost int,
+  PRIMARY KEY(r_id),
+  FOREIGN KEY (d_id) REFERENCES Drivers(d_id),
+  FOREIGN KEY (p_id) REFERENCES Passengers(p_id)
 );
