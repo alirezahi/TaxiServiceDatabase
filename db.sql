@@ -138,3 +138,12 @@ CREATE TABLE DriversDirections (
   PRIMARY KEY(dd_id),
   FOREIGN KEY (d_id) REFERENCES Drivers(d_id)
 );
+
+CREATE TABLE SupportTeam (
+  s_id int NOT NULL,
+  Fname varchar(50) ,
+  Lname varchar(50) ,
+  profilePic varchar(255) NOT NULL,
+  isonline boolean,
+  PRIMARY KEY(s_id)
+);
