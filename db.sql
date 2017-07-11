@@ -202,9 +202,12 @@ CREATE TABLE RequestMoney (
   FOREIGN KEY (s_id) REFERENCES SupportTeam(s_id)
 );
 
-CREATE TRIGGER add_credit
-BEFORE INSERT ON Clients
-  REFERENCING NEW ROW AS New
-FOR EACH ROW
-  SET New.home_telephone =
-      COALESCE(New.home_telephone,New.work_telephone);
+CREATE TABLE Complaint (
+  c_id int NOT NULL,
+  p_id int NOT NULL,
+  s_id int,
+  description varchar(400),
+  PRIMARY KEY(c_id),
+  FOREIGN KEY (p_id) REFERENCES Passengers(p_id),
+  FOREIGN KEY (s_id) REFERENCES SupportTeam(s_id)
+);
