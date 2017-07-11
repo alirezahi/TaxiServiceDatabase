@@ -207,6 +207,8 @@ CREATE TABLE Complaint (
   p_id int NOT NULL,
   s_id int,
   description varchar(400),
+  date_complaint DATETIME default CURRENT_TIMESTAMP,
+  date_response DATETIME,
   PRIMARY KEY(c_id),
   FOREIGN KEY (p_id) REFERENCES Passengers(p_id),
   FOREIGN KEY (s_id) REFERENCES SupportTeam(s_id)
